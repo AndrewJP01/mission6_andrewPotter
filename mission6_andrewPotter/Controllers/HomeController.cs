@@ -18,10 +18,24 @@ namespace mission6_andrewPotter.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult getToKnowJoel()
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult addMovie()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult addMovie(Movie response)
+        {
+            return View("confirmation");
+        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
