@@ -22,8 +22,6 @@ using System.ComponentModel.DataAnnotations;
         [Required]
         public string Director { get; set; }
 
-        public string Description { get; set; }
-
         [Required]
         public string Rating { get; set; }
 

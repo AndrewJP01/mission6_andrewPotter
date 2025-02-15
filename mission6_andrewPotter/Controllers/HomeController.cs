@@ -6,12 +6,18 @@ namespace mission6_andrewPotter.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
+        private MoviesContext _context;
+        public HomeController(MoviesContext temp) // Constructor
+        { 
+            _context = temp;
         }
+
+        //private readonly ILogger<HomeController> _logger;
+
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
 
         public IActionResult Index()
         {
@@ -32,6 +38,9 @@ namespace mission6_andrewPotter.Controllers
         [HttpPost]
         public IActionResult addMovie(Movie response)
         {
+            _context.Movies.Add(response); // Add record to the database
+            _context.SaveChanges(); // commits to the database
+
             return View("confirmation");
         }
 
