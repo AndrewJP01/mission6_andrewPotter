@@ -7,55 +7,93 @@
     Add Movie to The Database
 </h1>
 
+<!-- Display validation summary for any model-level errors -->
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
 <form asp-controller="Home" asp-action="AddMovie" method="post">
 
-    <input type="hidden" asp-for="MovieId" /> <!-- gets gets MovieId linked up -->
+    <input type="hidden" asp-for="MovieId" />
 
     <!-- Category (Dropdown) -->
-    <label asp-for="CategoryId">Category</label>
-    <select asp-for="CategoryId" class="form-control" required>
-
-        <option value="">Select a Category</option>
-        @foreach (var category in ViewData["Categories"] as List<mission6_andrewPotter.Models.Category>)
-        {
-            <option value="@category.CategoryId">@category.CategoryName</option>
-        }
-    </select>
+    <div class="form-group">
+        <label asp-for="CategoryId" class="control-label">Category</label>
+        <select asp-for="CategoryId" class="form-control" required>
+            <option value="">Select a Category</option>
+            @foreach (var category in ViewData["Categories"] as List<mission6_andrewPotter.Models.Category>)
+            {
+                <option value="@category.CategoryId">@category.CategoryName</option>
+            }
+        </select>
+        
+    </div>
 
     <!-- Title -->
-    <label asp-for="Title">Title</label>
-    <input asp-for="Title" class="form-control" required />
+    <div class="form-group">
+        <label asp-for="Title" class="control-label">Title</label>
+        <input asp-for="Title" class="form-control" required />
+       
+    </div>
 
     <!-- Year -->
-    <label asp-for="Year">Year</label>
-    <input asp-for="Year" class="form-control" type="number" min="1888" max="2100" required />
+    <div class="form-group">
+        <label asp-for="Year" class="control-label">Year</label>
+        <input asp-for="Year" class="form-control" type="number" min="1888" max="2100" required />
+        
+    </div>
 
     <!-- Director -->
-    <label asp-for="Director">Director</label>
-    <input asp-for="Director" class="form-control" />
+    <div class="form-group">
+        <label asp-for="Director" class="control-label">Director</label>
+        <input asp-for="Director" class="form-control" />
+       
+    </div>
 
     <!-- Rating (Dropdown) -->
-    <label asp-for="Rating">Rating</label>
-    <select asp-for="Rating" class="form-control">
-        <option value="">Select a rating</option>
-        <option value="G">G</option>
-        <option value="PG">PG</option>
-        <option value="PG-13">PG-13</option>
-        <option value="R">R</option>
-    </select>
+    <div class="form-group">
+        <label asp-for="Rating" class="control-label">Rating</label>
+        <select asp-for="Rating" class="form-control">
+            <option value="">Select a rating</option>
+            <option value="G">G</option>
+            <option value="PG">PG</option>
+            <option value="PG-13">PG-13</option>
+            <option value="R">R</option>
+        </select>
+       
+    </div>
 
     <!-- Edited (Yes/No Checkbox) -->
-    <label asp-for="Edited">Edited</label>
-    <input asp-for="Edited" class="form-check-input" type="checkbox" />
+    <div class="form-group">
+        <label asp-for="Edited" class="control-label">Edited</label>
+        <input asp-for="Edited" class="form-check-input" type="checkbox" />
+        
+    </div>
 
     <!-- Lent To (Optional) -->
-    <label asp-for="LentTo">Lent To</label>
-    <input asp-for="LentTo" class="form-control" />
+    <div class="form-group">
+        <label asp-for="LentTo" class="control-label">Lent To</label>
+        <input asp-for="LentTo" class="form-control" />
+        
+    </div>
+
+    <!-- Copied to Plex -->
+    <div class="form-group">
+        <label asp-for="LentTo" class="control-label">Copied to Plex</label>
+        <input asp-for="CopiedToPlex" class="form-check-input" type="checkbox" />
+        
+    </div>
 
     <!-- Notes (Optional, Max 25 Characters) -->
-    <label asp-for="Notes">Notes</label>
-    <input asp-for="Notes" class="form-control" maxlength="25" />
+    <div class="form-group">
+        <label asp-for="Notes" class="control-label">Notes</label>
+        <input asp-for="Notes" class="form-control" maxlength="25" />
+
+    </div>
 
     <!-- Submit Button -->
     <button type="submit" class="btn btn-primary">Add Movie</button>
+
+    <div asp-validation-summary="All"></div>
 </form>
+
+
+

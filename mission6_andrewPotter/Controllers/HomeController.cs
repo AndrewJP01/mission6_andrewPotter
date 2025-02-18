@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using mission6_andrewPotter.Models;
@@ -9,7 +10,7 @@ namespace mission6_andrewPotter.Controllers
     {
         private MoviesContext _context;
         public HomeController(MoviesContext temp) // Constructor
-        { 
+        {
             _context = temp;
         }
 
@@ -23,7 +24,6 @@ namespace mission6_andrewPotter.Controllers
             return View();
         }
 
-        // this get shows the add movie view
         [HttpGet]
         public IActionResult AddMovie()
         {
@@ -37,27 +37,32 @@ namespace mission6_andrewPotter.Controllers
             return View();
         }
 
-        // posts the added movie into the database
         [HttpPost]
-        public IActionResult addMovie(Movie response)
+        public IActionResult AddMovie(Movie movie)
         {
-            _context.Movies.Add(response); // Add record to the database
-            _context.SaveChanges(); // commits to the database
+            if (!ModelState.IsValid) { // Add the movie to the database
+                _context.Movies.Add(movie);
+                _context.SaveChanges();
 
-            return View("confirmation");
+                // Redirect to the movie list page and pass the updated list of movies
+                return View("confirmation"); }
+
+            else {
+                return View(movie);
+                }
         }
 
-        //gets the view of all the movies
+
         [HttpGet]
+
         public IActionResult MovieList()
         {
             // Eagerly load the related Category data with each Movie
             var movies = _context.Movies.Include(m => m.Category).ToList();
-
+            // Return the view
             return View(movies);
         }
 
-        // gets the view to edit movies
         [HttpGet]
         public IActionResult EditMovie(int id)
         {
@@ -72,19 +77,26 @@ namespace mission6_andrewPotter.Controllers
             return View("EditMovie", recordToEdit);
         }
 
-        // posts the edited movie into the database
         [HttpPost]
         public IActionResult EditMovie(Movie response)
         {
-            // Update the record in the database
-            _context.Movies.Update(response);
-            // Commit the changes to the database
-            _context.SaveChanges();
-            // Redirect to the test page
-            return RedirectToAction("test");
+            if (!ModelState.IsValid)
+            {
+                // Update the record in the database
+                _context.Movies.Update(response);
+                // Commit the changes to the database
+                _context.SaveChanges();
+                // Redirect to the test page
+                return RedirectToAction("MovieList");
+            }
+
+            else
+            {
+                return View(response);
+            }
+           
         }
 
-        // this gets a view to confirm a movie deletion
         [HttpGet]
         public IActionResult DeleteMovie(int id)
         {
@@ -95,7 +107,6 @@ namespace mission6_andrewPotter.Controllers
             return View("DeleteMovie", recordToDelete);
         }
 
-        // posts the deletion of the movie to the database
         [HttpPost]
         public IActionResult DeleteMovie(Movie response)
         {
@@ -104,7 +115,7 @@ namespace mission6_andrewPotter.Controllers
             // Commit the changes to the database
             _context.SaveChanges();
             // Redirect to the test page
-            return RedirectToAction("test");
+            return RedirectToAction("MovieList");
         }   
     }
 }
