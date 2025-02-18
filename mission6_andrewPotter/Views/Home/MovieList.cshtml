@@ -1,0 +1,41 @@
+﻿@model List<mission6_andrewPotter.Models.Movie>
+
+<table class="table table-striped table-bordered"> <!-- a table to list all the movies and buttons to had UD capabilities-->
+    <thead class="thead-dark">
+        <tr>
+            <th>Category</th>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Director</th>
+            <th>Rating</th>
+            <th>Edited</th>
+            <th>LentTo</th>
+            <th>CopiedToPlex</th>
+            <th>Notes</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model)
+        {
+            <tr>
+                <!-- Display movie data in table rows -->
+                <td>@movie.Category.CategoryName</td>
+                <td>@movie.Title</td>
+                <td>@movie.Year</td>
+                <td>@movie.Director</td>
+                <td>@movie.Rating</td>
+                <td>@(movie.Edited ? "Yes" : "No")</td>
+                <td>@movie.LentTo</td>
+                <td>@(movie.CopiedToPlex ? "Yes" : "No")</td>
+                <td>@movie.Notes</td>
+                <td>
+                    <!-- Edit button --> 
+                    <a asp-action="EditMovie" asp-route-id="@movie.MovieId" class="btn btn-primary btn-sm">Edit</a> |
+                    <!-- Delete button -->
+                    <a asp-action="DeleteMovie" asp-route-id="@movie.MovieId" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

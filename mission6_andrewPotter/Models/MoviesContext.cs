@@ -9,6 +9,8 @@ namespace mission6_andrewPotter.Models
         { 
         }
 
+        // this gets both of our models set up for each table
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }

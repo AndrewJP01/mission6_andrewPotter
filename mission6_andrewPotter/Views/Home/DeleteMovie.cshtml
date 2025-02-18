@@ -1,0 +1,17 @@
+﻿@model mission6_andrewPotter.Models.Movie
+
+<h1>Delete Movie</h1>
+
+<p>Are you sure you want to delete the movie <strong>@Model.Title</strong>?</p>
+<p><strong>Director:</strong> @Model.Director</p>
+<p><strong>Year:</strong> @Model.Year</p>
+
+<!-- Form to confirm the deletion -->
+<form asp-action="DeleteMovie" method="post">
+    <!-- Pass the MovieId so we know which movie to delete -->
+    <input type="hidden" asp-for="MovieId" />
+
+    <!-- Confirmation Buttons -->
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a asp-action="DeleteMovie" class="btn btn-secondary">Cancel</a>
+</form>

@@ -7,15 +7,15 @@
     Add Movie to The Database
 </h1>
 
-<form asp-controller="Home" asp-action="AddMovie" method="post">
+<form asp-controller="Home" asp-action="EditMovie" method="post">
 
     <input type="hidden" asp-for="MovieId" /> <!-- gets gets MovieId linked up -->
 
     <!-- Category (Dropdown) -->
     <label asp-for="CategoryId">Category</label>
     <select asp-for="CategoryId" class="form-control" required>
-
         <option value="">Select a Category</option>
+
         @foreach (var category in ViewData["Categories"] as List<mission6_andrewPotter.Models.Category>)
         {
             <option value="@category.CategoryId">@category.CategoryName</option>
@@ -57,5 +57,5 @@
     <input asp-for="Notes" class="form-control" maxlength="25" />
 
     <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary">Add Movie</button>
+    <button type="submit" class="btn btn-primary">Edit Movie</button>
 </form>
